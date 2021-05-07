@@ -1,15 +1,14 @@
+#include <iostream>
 #include <sstream>
 #include "include/xml/xml_validator.hpp"
 
-XmlValidator::XmlValidator()
+XmlValidator::XmlValidator(const std::string &xsd_path)
 {
+    std::string xsd_loc = "urn:ieee:std:2030.5:ns " + xsd_path;
+    schema_location_ = xsd_loc.c_str();
+
     XMLPlatformUtils::Initialize();
     dom_parser_ = new XercesDOMParser();
-    // /dom_parser_->cacheGrammarFromParse(true);
-    if (dom_parser_->loadGrammar(xsd_path_, Grammar::SchemaGrammarType) == NULL)
-    {
-        fprintf(stderr, "couldn't load schema\n");
-    }
 
     parser_error_handler_ = new ParserErrorHandler();
     dom_parser_->setErrorHandler(parser_error_handler_);

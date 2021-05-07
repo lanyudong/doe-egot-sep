@@ -5854,7 +5854,7 @@ Bit positions SHALL be defined as follows:
 All other values reserved.</xs:documentation>
     </xs:annotation>
       <xs:restriction base="xs:hexBinary">
-        <xs:pattern value="[0-3][0-9A-F]{0,6}"/>
+        <xs:pattern value="[0-3]?[0-9A-F]{0,6}"/>
       </xs:restriction>
   </xs:simpleType>
   <xs:complexType name="DstRuleType">

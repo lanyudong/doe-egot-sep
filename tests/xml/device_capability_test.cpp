@@ -8,14 +8,17 @@
 #include <sep/models.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
+#include "global.hpp"
 
 class TestDeviceCapabilityXML : public ::testing::Test 
 {
 protected:
     void SetUp() override 
     {        
+        validator = new XmlValidator(g_program_path + "/sep.xsd");
+
         // read in the sample file
-        std::ifstream ifs("./DeviceCapability.xml");
+        std::ifstream ifs(g_program_path + "/DeviceCapability.xml");
         if (ifs)
         {
             std::ostringstream oss;
@@ -30,23 +33,24 @@ protected:
 
     void TearDown() override
     {
-        // do nothing
+        delete validator;
     }
 
 protected:
     std::string xml_str;
-    XmlValidator validator;
+    XmlValidator *validator;
 };
 
 TEST_F(TestDeviceCapabilityXML, IsSampleValid) 
 {   
-    EXPECT_TRUE(validator.ValidateXml(xml_str));      
+    EXPECT_TRUE(validator->ValidateXml(xml_str));      
 }
 
 TEST_F(TestDeviceCapabilityXML, IsAdapterValid) 
 {   
     sep::DeviceCapability *dcap = new sep::DeviceCapability;
-    EXPECT_TRUE(xml::Parse(xml_str, dcap));
+    xml::Parse(xml_str, dcap);
+    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(*dcap)));
     delete dcap;
 }
 

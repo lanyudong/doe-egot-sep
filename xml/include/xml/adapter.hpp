@@ -29,31 +29,31 @@ namespace xml
 
     // Active Power
     std::string Serialize(const sep::ActivePower &active_power);
-    bool Parse (const std::string &xml_str, sep::ActivePower *active_power);
+    void Parse (const std::string &xml_str, sep::ActivePower *active_power);
 
     // Flow Reservation Request
     std::string Serialize(const sep::FlowReservationRequest &fr_request);
-    bool Parse(const std::string &xml_str, sep::FlowReservationRequest *fr_request);
+    void Parse(const std::string &xml_str, sep::FlowReservationRequest *fr_request);
 
     // Flow Reservation Response
     std::string Serialize(const sep::FlowReservationResponse &fr_response);
-    bool Parse(const std::string &xml_str, sep::FlowReservationResponse *fr_response);
+    void Parse(const std::string &xml_str, sep::FlowReservationResponse *fr_response);
 
     // Device Capability
     std::string Serialize(const sep::DeviceCapability &dcap);
-    bool Parse(const std::string &xml_str, sep::DeviceCapability *dcap);
+    void Parse(const std::string &xml_str, sep::DeviceCapability *dcap);
 
     // End Device
     std::string Serialize(const sep::EndDevice &edev);
-    bool Parse(const std::string &xml_str, sep::EndDevice *edev);
+    void Parse(const std::string &xml_str, sep::EndDevice *edev);
 
     // Self Device
     std::string Serialize(const sep::SelfDevice &sdev);
-    bool Parse(const std::string &xml_str, sep::SelfDevice *sdev);
+    void Parse(const std::string &xml_str, sep::SelfDevice *sdev);
 
     // Self Device
     std::string Serialize(const sep::Time &time);
-    bool Parse(const std::string &xml_str, sep::Time *time);
+    void Parse(const std::string &xml_str, sep::Time *time);
 } // namespace xml
 
 #endif // __ADAPTER_H__

@@ -8,14 +8,17 @@
 #include <sep/models.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
+#include "global.hpp"
 
 class TestEndDeviceXML : public ::testing::Test 
 {
 protected:
     void SetUp() override 
     {        
+        validator = new XmlValidator(g_program_path + "/sep.xsd");
+
         // read in the sample file
-        std::ifstream ifs("./EndDevice.xml");
+        std::ifstream ifs(g_program_path + "/EndDevice.xml");
         if (ifs)
         {
             std::ostringstream oss;
@@ -30,23 +33,24 @@ protected:
 
     void TearDown() override
     {
-        // do nothing
+        delete validator;
     }
 
 protected:
     std::string xml_str;
-    XmlValidator validator;
+    XmlValidator *validator;
 };
 
 TEST_F(TestEndDeviceXML, IsSampleValid) 
 {   
-    EXPECT_TRUE(validator.ValidateXml(xml_str));      
+    EXPECT_TRUE(validator->ValidateXml(xml_str));      
 }
 
 TEST_F(TestEndDeviceXML, IsAdapterValid) 
 {   
     sep::EndDevice *edev = new sep::EndDevice;
-    EXPECT_TRUE(xml::Parse(xml_str, edev));
+    xml::Parse(xml_str, edev);
+    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(*edev)));
     delete edev;
 }
 
@@ -106,7 +110,5 @@ TEST_F(TestEndDeviceXML, CheckAdapterDeviceCategoryMaxValue)
     pt.put("EndDevice.SubscriptionListLink.<xmlattr>.href", "http://uri1");
 
     std::string xml_adapter = xml::util::Stringify(pt);
-    sep::EndDevice *edev = new sep::EndDevice;
-    EXPECT_FALSE(xml::Parse(xml_adapter, edev));
-    delete edev;
+    EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }

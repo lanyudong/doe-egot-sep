@@ -35,7 +35,6 @@ struct LinkList
 // System names ('Move') use PascalCase. API types use snake_case_t
 void Poll(flecs::iter& it, Link *link) {
     for (auto i : it) {
-        flecs::world = flecs::world::get_world();
         std::cout << "href: " << link[i].href << ", " << link[i].poll_rate << std::endl;
     }
 };
@@ -73,5 +72,5 @@ protected:
 TEST_F(TestDCM, IsSampleValid) 
 {   
    std::cout << "Hello DCM Test" << std::endl;
-   world.progress().;
+   world.progress();
 }

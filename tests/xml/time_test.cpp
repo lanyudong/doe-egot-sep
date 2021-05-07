@@ -8,14 +8,17 @@
 #include <sep/models.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
+#include "global.hpp"
 
 class TestTimeXML : public ::testing::Test 
 {
 protected:
     void SetUp() override 
     {        
+        validator = new XmlValidator(g_program_path + "/sep.xsd");
+
         // read in the sample file
-        std::ifstream ifs("./Time.xml");
+        std::ifstream ifs(g_program_path + "/Time.xml");
         if (ifs)
         {
             std::ostringstream oss;
@@ -30,23 +33,24 @@ protected:
 
     void TearDown() override
     {
-        // do nothing
+        delete validator;
     }
 
 protected:
     std::string xml_str;
-    XmlValidator validator;
+    XmlValidator *validator;
 };
 
 TEST_F(TestTimeXML, IsSampleValid) 
 {   
-    EXPECT_TRUE(validator.ValidateXml(xml_str));      
+    EXPECT_TRUE(validator->ValidateXml(xml_str));      
 }
 
 TEST_F(TestTimeXML, IsAdapterValid) 
 {   
     sep::Time *time = new sep::Time;
-    EXPECT_TRUE(xml::Parse(xml_str, time));
+    xml::Parse(xml_str, time);
+    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(*time)));
     delete time;
 }
 
@@ -80,9 +84,7 @@ TEST_F(TestTimeXML, CheckAdapterQualityMinValue)
     pt.put("Time.tzOffset", 1);
 
     std::string xml_adapter = xml::util::Stringify(pt);
-    sep::Time *time = new sep::Time;
-    EXPECT_FALSE(xml::Parse(xml_adapter, time));
-    delete time;
+    EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }
 
 TEST_F(TestTimeXML, CheckAdapterQualityMaxValue) 
@@ -99,7 +101,5 @@ TEST_F(TestTimeXML, CheckAdapterQualityMaxValue)
     pt.put("Time.tzOffset", 1);
 
     std::string xml_adapter = xml::util::Stringify(pt);
-    sep::Time *time = new sep::Time;
-    EXPECT_FALSE(xml::Parse(xml_adapter, time));
-    delete time;;
+    EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }

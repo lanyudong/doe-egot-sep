@@ -8,14 +8,17 @@
 #include <sep/models.hpp>
 #include <xml/adapter.hpp>
 #include <xml/xml_validator.hpp>
+#include "global.hpp"
 
 class TestActivePowerXML : public ::testing::Test 
 {
 protected:
     void SetUp() override 
     {        
+        validator = new XmlValidator(g_program_path + "/sep.xsd");
+
         // read in the sample file
-        std::ifstream ifs("./ActivePower.xml");
+        std::ifstream ifs(g_program_path + "/ActivePower.xml");
         if (ifs)
         {
             std::ostringstream oss;
@@ -30,24 +33,25 @@ protected:
 
     void TearDown() override
     {
-        // do nothing
+        delete validator;
     }
 
 protected:
     std::string xml_str;
-    XmlValidator validator;
+    XmlValidator *validator;
 };
 
 TEST_F(TestActivePowerXML, IsSampleValid) 
 {   
-    EXPECT_TRUE(validator.ValidateXml(xml_str));      
+    EXPECT_TRUE(validator->ValidateXml(xml_str));      
 }
 
 TEST_F(TestActivePowerXML, IsAdapterValid) 
 {   
     // create model, convert it into a string and then reparse to see if the string was valid
     sep::ActivePower *active_power = new sep::ActivePower;
-    EXPECT_TRUE(xml::Parse(xml_str, active_power));
+    xml::Parse(xml_str, active_power);
+    EXPECT_TRUE(validator->ValidateXml(xml::Serialize(*active_power)));
     delete active_power;
 }
 
@@ -67,9 +71,7 @@ TEST_F(TestActivePowerXML, CheckAdapterMultiplierMaxInclusive)
     pt.put("ActivePower.multiplier", 10);
     pt.put("ActivePower.value", -32000);
     std::string xml_adapter = xml::util::Stringify(pt);
-    sep::ActivePower *active_power = new sep::ActivePower;
-    EXPECT_FALSE(xml::Parse(xml_adapter, active_power));
-    delete active_power;
+    EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }
 
 TEST_F(TestActivePowerXML, CheckAdapterMultiplierMinInclusive) 
@@ -78,9 +80,7 @@ TEST_F(TestActivePowerXML, CheckAdapterMultiplierMinInclusive)
     pt.put("ActivePower.multiplier", -10);
     pt.put("ActivePower.value", -32000);
     std::string xml_adapter = xml::util::Stringify(pt);
-    sep::ActivePower *active_power = new sep::ActivePower;
-    EXPECT_FALSE(xml::Parse(xml_adapter, active_power));
-    delete active_power;
+    EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }
 
 TEST_F(TestActivePowerXML, CheckAdapterValueMaxInclusive) 
@@ -89,9 +89,7 @@ TEST_F(TestActivePowerXML, CheckAdapterValueMaxInclusive)
     pt.put("ActivePower.multiplier", 1);
     pt.put("ActivePower.value", 32768);
     std::string xml_adapter = xml::util::Stringify(pt);
-    sep::ActivePower *active_power = new sep::ActivePower;
-    EXPECT_FALSE(xml::Parse(xml_adapter, active_power));
-    delete active_power;
+    EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }
 
 TEST_F(TestActivePowerXML, CheckAdapterValueMinInclusive) 
@@ -100,7 +98,5 @@ TEST_F(TestActivePowerXML, CheckAdapterValueMinInclusive)
     pt.put("ActivePower.multiplier", 1);
     pt.put("ActivePower.value", -32769);
     std::string xml_adapter = xml::util::Stringify(pt);
-    sep::ActivePower *active_power = new sep::ActivePower;
-    EXPECT_FALSE(xml::Parse(xml_adapter, active_power));
-    delete active_power;
+    EXPECT_FALSE(validator->ValidateXml(xml_adapter));
 }

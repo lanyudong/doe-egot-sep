@@ -18,6 +18,7 @@ add_executable (xml_tests
     end_device_test.cpp
     self_device_test.cpp
     time_test.cpp
+    
 )
 
 target_link_libraries(xml_tests gtest gtest_main Model XML Boost::boost pthread)

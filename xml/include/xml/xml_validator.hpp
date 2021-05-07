@@ -52,15 +52,14 @@ public:
 class XmlValidator
 {
 public:
-    XmlValidator();
+    XmlValidator(const std::string &xsd_path);
     ~XmlValidator();
     bool ValidateXml(const std::string &xml_str);
 
 private:
     XercesDOMParser *dom_parser_;
     ParserErrorHandler *parser_error_handler_;
-    const char *xsd_path_ = "sep.xsd";
-    const char *schema_location_ = "urn:ieee:std:2030.5:ns sep.xsd";
+    const char *schema_location_;
 };
 
 #endif // __XML_VALIDATOR_H__
