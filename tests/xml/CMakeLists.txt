@@ -32,5 +32,5 @@ target_include_directories(
 add_custom_command(
     TARGET xml_tests POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/resources/ $<TARGET_FILE_DIR:xml_tests>
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/ ${CMAKE_BINARY_DIR}/bin
 )
