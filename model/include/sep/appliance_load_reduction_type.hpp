@@ -10,9 +10,10 @@ namespace sep
     // if already in a load consuming period.
     enum class ApplianceLoadReductionType : uint8_t
     {
-        DELAY_APPLIANCE_LOAD,
-        TEMPORARY_APPLIANCE_LOAD_REDUCTION
+        kDelayApplianceLoad,
+        kTemporaryApplianceLoadReduction
     };
+
 }; // namespace sep
 
 #endif // __APPLIANCE_LOAD_REDUCTION_TYPE_H__

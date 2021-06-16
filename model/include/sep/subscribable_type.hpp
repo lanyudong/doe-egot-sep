@@ -6,10 +6,10 @@ namespace sep
 {
     enum class SubscribableType : uint8_t
     {
-        NONE,
-        NON_CONDITIONAL,
-        CONDITIONAL,
-        BOTH
+        kNone,
+        kNonConditional,
+        kConditional,
+        kBoth
     };
 };     // namespace sep
 #endif // __SUBSCRIBABLE_TYPE_H__

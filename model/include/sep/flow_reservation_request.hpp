@@ -6,6 +6,7 @@
 #include "date_time_interval.hpp"
 #include "active_power.hpp"
 #include "request_status.hpp"
+#include "identified_object.hpp"
 
 namespace sep
 {
@@ -14,25 +15,14 @@ namespace sep
     // FlowReservationResponse containing the charging parameters and interval to
     // provide a lower aggregated demand at the premises, or within a larger part
     // of the distribution system
-    class FlowReservationRequest
+    struct FlowReservationRequest : IdentifiedObject
     {
-    public:
-        FlowReservationRequest(
-            sep::TimeType creation_time,
-            uint16_t duration_requested,
-            sep::SignedRealEnergy *energy_requested,
-            sep::DateTimeInterval *interval_requested,
-            sep::ActivePower *power_requested,
-            sep::RequestStatus *request_status);
-        ~FlowReservationRequest();
-
-    public:
-        sep::TimeType creation_time_;
-        uint16_t duration_requested_;
-        sep::SignedRealEnergy *energy_requested_;
-        sep::DateTimeInterval *interval_requested_;
-        sep::ActivePower *power_requested_;
-        sep::RequestStatus *request_status_;
+        sep::TimeType creation_time;
+        uint16_t duration_requested;
+        sep::SignedRealEnergy energy_requested;
+        sep::DateTimeInterval interval_requested;
+        sep::ActivePower power_requested;
+        sep::RequestStatus request_status;
     };
 } // namespace sep
 

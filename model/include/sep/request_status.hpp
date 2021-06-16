@@ -3,26 +3,21 @@
 #include <cstdint>
 #include "time_type.hpp"
 
+
 namespace sep
 {
-    // The RequestStatus object is used to indicate the current status of a Flow Reservation Request.
-    class RequestStatus
+    // Field representing the request status type.
+    enum class Status : uint8_t
     {
-    public:
-        // Field representing the request status type.
-        enum class Status : uint8_t
-        {
-            REQUESTED,
-            CANCELLED
-        };
+        kRequested,
+        kCancelled
+    };
 
-    public:
-        RequestStatus(sep::TimeType datetime, Status status);
-        ~RequestStatus();
-
-    public:
-        sep::TimeType datetime_;
-        Status status_;
+    // The RequestStatus object is used to indicate the current status of a Flow Reservation Request.
+    struct RequestStatus
+    {
+        sep::TimeType datetime;
+        Status status;
     };
 } // namespace sep
 

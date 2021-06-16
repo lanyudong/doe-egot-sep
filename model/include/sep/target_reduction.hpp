@@ -7,19 +7,19 @@ namespace sep
     // The unit types defined for end device control target reductions
     enum class UnitType : uint8_t
     {
-        KW,
-        KWH,
-        WATTS,
-        CUBIC_METERS,
-        CUBIC_FEET,
-        US_GALLONS,
-        IMPERIAL_GALLONS,
-        BTUS,
-        LITERS,
-        KPA_GAUGE,
-        KPA_ABSOLUTE,
-        MEGA_JOULE,
-        UNITLESS
+        kkWh,
+        kkW,
+        kWatts,
+        KCubicMeters,
+        kCubicFeet,
+        kUSGallons,
+        kImperialGallons,
+        kBTUs,
+        kLiters,
+        kkPAGuage,
+        kkPAAbsolute,
+        kMegaJoule,
+        kUnitless
     };
 
     // The TargetReduction object is used by a Demand Response service provider
@@ -29,17 +29,10 @@ namespace sep
     // For example, a service provider can provide a RECOMMENDED threshold of
     // some kWh for a 3-hour event. This means that the device/premises would
     // maintain its consumption below the specified limit for the specified period.
-    class TargetReduction
+    struct TargetReduction
     {
-    public:
-        TargetReduction(
-            sep::UnitType unit_type,
-            uint16_t value);
-        ~TargetReduction();
-
-    public:
-        sep::UnitType unit_type_;
-        uint16_t value_;
+        sep::UnitType unit_type;
+        uint16_t value;
     };
 };     // namespace sep
 #endif // __TARGET_REDUCTION_H__

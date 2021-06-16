@@ -10,21 +10,11 @@ namespace sep
     // The server may modify the charging or discharging parameters and interval
     // to provide a lower aggregated demand at the premises, or within a larger
     // part of the distribution system.
-    class FlowReservationResponse
+    struct FlowReservationResponse : Event
     {
-    public:
-        FlowReservationResponse(
-            sep::Event *event,
-            sep::SignedRealEnergy *signed_real_energy,
-            sep::ActivePower *active_power,
-            std::string mrid_type);
-        ~FlowReservationResponse();
-
-    public:
-        sep::Event *event_;
-        sep::SignedRealEnergy *signed_real_energy_; // energy in watt-hours
-        sep::ActivePower *active_power_;            // power in watts
-        std::string mrid_type_;                    // match event
+        sep::SignedRealEnergy energy_available; // energy in watt-hours
+        sep::ActivePower power_available;       // power in watts
+        std::string subject;                    // match event
     };
 };     // namespace sep
 #endif // __FLOW_RESERVATION_RESPONSE_H__
