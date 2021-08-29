@@ -18,8 +18,7 @@
 namespace sep
 { 
 	struct DERCurve : IdentifiedObject
-	{
-		
+	{		
 	bool autonomousVRefEnable;	//Ture for opmodVoltVar
 	uint32_t autonomousVRefTimeConstant; 
 	sep::TimeType creationTime;

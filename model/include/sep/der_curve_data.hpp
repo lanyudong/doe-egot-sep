@@ -5,10 +5,8 @@
 #include "der_unit_ref_type.hpp"
 
 namespace sep
-
 {
 	struct CurveData
-	
 	{
 	bool excitation;
 	int32_t x;
@@ -17,3 +15,4 @@ namespace sep
 	
 };	
 
+#endif 
