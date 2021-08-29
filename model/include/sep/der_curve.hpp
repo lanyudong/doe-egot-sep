@@ -1,5 +1,5 @@
-#ifndef _DER_Curve_H
-#define _DER_Curve_H
+#ifndef __DER_Curve_H__
+#define __DER_Curve_H__
 #include <string>
 #include <cstdint>
 
@@ -19,12 +19,12 @@ namespace sep
 { 
 	struct DERCurve : IdentifiedObject
 	{
-	public :	
+		
 	bool autonomousVRefEnable;	//Ture for opmodVoltVar
 	uint32_t autonomousVRefTimeConstant; 
 	sep::TimeType creationTime;
-	sep::CurveData curveData;	
-	sep::DERCurveType curveType;
+	sep::CurveData curvedata;	
+	sep::DERCurveType curvetype;
 	uint16_t openLoopTms;
 	uint16_t rampDecTms;
 	uint16_t rampIncTms;
@@ -33,10 +33,11 @@ namespace sep
 	sep::PowerOfTenMultiplierType xMultiplier;
 	sep::PowerOfTenMultiplierType yMultiplier;
 	sep::DERUnitRefType yRefType;	//SetMAXVAR for opmodVoltVar
-	
 	};	
 	
 };
+
+
 #endif
 
 

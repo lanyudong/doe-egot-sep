@@ -1,12 +1,12 @@
-#ifndef _DER_CURVE_TYPE_H_
-#define _DER_CURVE_TYPE_H_
+#ifndef __DER_CURVE_TYPE_H__
+#define __DER_CURVE_TYPE_H__
 #include <cstdint>
 
 namespace sep
 
 {
 	enum class DERCurveType : uint32_t
-	public:
+	
 	{
 		opModFreqWatt 		= 0,
 		opModHFRTMayTrip 	= 1,
