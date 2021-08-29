@@ -23,6 +23,8 @@ namespace sep
 		opModVoltWatt		= 12,
 		opModWattPF			= 13,
 		opModWattVar		= 14
+	
+		sep::CurveData curvedata;
 	};
 	
 };
