@@ -1,5 +1,5 @@
-#ifndef __DER_CURVE_TYPE_H__
-#define __DER_CURVE_TYPE_H__
+#ifndef __CURVE_DATA_H__
+#define __CURVE_DATA_H__
 #include <cstdint>
 #include "signed_per_cent.hpp"
 #include "der_unit_ref_type.hpp"

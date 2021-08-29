@@ -1,5 +1,5 @@
-#ifndef __DER_Curve_H__
-#define __DER_Curve_H__
+#ifndef __DER_CURVE_H__
+#define __DER_CURVE_H__
 #include <string>
 #include <cstdint>
 
@@ -23,8 +23,8 @@ namespace sep
 	bool autonomousVRefEnable;	//Ture for opmodVoltVar
 	uint32_t autonomousVRefTimeConstant; 
 	sep::TimeType creationTime;
-	sep::CurveData curvedata;	
-	sep::DERCurveType curvetype;
+	sep::CurveData CurveData;	
+	sep::DERCurveType curveType;
 	uint16_t openLoopTms;
 	uint16_t rampDecTms;
 	uint16_t rampIncTms;

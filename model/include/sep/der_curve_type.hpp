@@ -3,10 +3,8 @@
 #include <cstdint>
 
 namespace sep
-
 {
 	enum class DERCurveType : uint32_t
-	
 	{
 		opModFreqWatt 		= 0,
 		opModHFRTMayTrip 	= 1,
