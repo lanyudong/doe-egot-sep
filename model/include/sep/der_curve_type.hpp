@@ -20,11 +20,8 @@ namespace sep
 		opModVoltVar		= 11,
 		opModVoltWatt		= 12,
 		opModWattPF			= 13,
-		opModWattVar		= 14
-	
-		sep::CurveData curvedata;
+		opModWattVar		= 14,
 	};
-	
 };
 
 #endif  //_DER_CURVE_TYPE_H_
