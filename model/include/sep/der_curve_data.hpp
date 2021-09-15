@@ -9,7 +9,7 @@ namespace sep
 	struct CurveData
 	{
 	bool excitation;
-	int32_t x;
+	uint32_t x;
 	int32_t y;
 	};
 	
